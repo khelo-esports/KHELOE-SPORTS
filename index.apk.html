@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khelo E-sports - Download</title>
+    <style>
+        /* বেসিক স্টাইল এবং স্মুথ স্ক্রোলিং */
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0b1828;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        /* নেভিগেশন বার */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #091422;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-sizing: border-box;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .logo {
+            color: #ffffff;
+            font-size: 22px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+        .nav-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: #ff6b35;
+        }
+
+        /* হিরো সেকশন (প্রথম ছবি) */
+        .hero-section {
+            background: radial-gradient(circle at top right, #1a365d, #0b1828 70%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 100px 20px 20px;
+            position: relative;
+        }
+        .hero-section h1 {
+            color: #ffffff;
+            font-size: 42px;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+        .hero-section p {
+            color: #cbd5e1;
+            font-size: 16px;
+            max-width: 500px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+        .download-btn {
+            background: linear-gradient(135deg, #ff6b35, #ff3b00);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .download-btn:active {
+            transform: scale(0.95);
+        }
+        
+        /* ডাউনলোড মেসেজ */
+        #status-message {
+            display: none;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: rgba(255,255,255,0.1);
+            color: #60a5fa;
+            border-radius: 8px;
+            font-size: 14px;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .scroll-down {
+            margin-top: 60px;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        .scroll-down span {
+            display: block;
+            font-size: 24px;
+            margin-top: 5px;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* বৈশিষ্ট্য সেকশন (দ্বিতীয় ও তৃতীয় ছবি) */
+        .features-section {
+            background-color: #ffffff;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .section-title {
+            color: #0b1828;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .section-subtitle {
+            color: #64748b;
+            font-size: 16px;
+            max-width: 600px;
+            margin: 0 auto 50px;
+            line-height: 1.5;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .feature-card {
+            background-color: #ffffff;
+            padding: 40px 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            transition: transform 0.3s;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #d97762, #4972a5);
+            border-radius: 50%;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .icon-box svg {
+            width: 30px;
+            height: 30px;
+            fill: white;
+        }
+        .feature-card h3 {
+            color: #0f172a;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        .feature-card p {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* রিভিউ সেকশন (চতুর্থ ছবি) */
+        .reviews-section {
+            background-color: #0b1828;
+            padding: 80px 20px;
+            text-align: center;
+            color: white;
+        }
+        .reviews-section .section-title {
+            color: white;
+        }
+        .reviews-section .section-subtitle {
+            color: #94a3b8;
+        }
+        .review-content {
+            max-width: 600px;
+            margin: 0 auto;
+            margin-top: 40px;
+        }
+        .review-text {
+            font-size: 18px;
+            font-style: italic;
+            line-height: 1.8;
+            color: #e2e8f0;
+            margin-bottom: 20px;
+        }
+        .reviewer-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 10px;
+        }
+        .stars {
+            color: #facc15;
+            font-size: 24px;
+            letter-spacing: 2px;
+        }
+
+        /* ফুটার গ্রেডিয়েন্ট */
+        .footer-bottom {
+            height: 150px;
+            background: linear-gradient(to bottom, #0b1828, #3b5a7e, #e27d60);
+        }
+        
+        /* মোবাইল রেস্পন্সিভ */
+        @media (max-width: 480px) {
+            .hero-section h1 { font-size: 32px; }
+            .section-title { font-size: 26px; }
+            .nav-links { gap: 10px; }
+            .nav-links a { font-size: 12px; }
+            .logo { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- হেডার ও মেনু -->
+    <header>
+        <a href="#home" class="logo">Khelo E-sports</a>
+        <div class="nav-links">
+            <!-- মেনু লিংকগুলো, ক্লিক করলে নির্দিষ্ট সেকশনে যাবে -->
+            <a href="#features">বৈশিষ্ট্য</a>
+            <a href="#reviews">রিভিউ</a>
+            <a href="#home">ডাউনলোড</a>
+        </div>
+    </header>
+
+    <!-- হিরো সেকশন / ডাউনলোড এরিয়া -->
+    <section id="home" class="hero-section">
+        <h1>Khelo E-sports</h1>
+        <p>বাংলাদেশের সেরা টুর্নামেন্ট অ্যাপ – অংশ নিন, খেলুন এবং পুরস্কার জিতুন</p>
+        
+        <button class="download-btn" onclick="startDownload()">অ্যাপ ডাউনলোড করুন</button>
+        
+        <div id="status-message">
+            ⏳ ব্রাউজারে রিডাইরেক্ট হচ্ছে...
+        </div>
+
+        <div class="scroll-down">
+            নিচে স্ক্রল করুন
+            <span>↓</span>
+        </div>
+    </section>
+
+    <!-- অ্যাপের বৈশিষ্ট্য সেকশন -->
+    <section id="features" class="features-section">
+        <h2 class="section-title">অ্যাপের বৈশিষ্ট্য</h2>
+        <p class="section-subtitle">গেমারদের জন্য বানানো এক প্ল্যাটফর্ম যেখানে সবকিছু সহজ এবং দ্রুত</p>
+
+        <div class="features-grid">
+            <!-- ফিচার ১ -->
+            <div class="feature-card">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                </div>
+                <h3>সহজ রেজিস্ট্রেশন</h3>
+                <p>কয়েকটি ধাপে প্রোফাইল তৈরি করে দ্রুত টুর্নামেন্টে যোগ দিন।</p>
+            </div>
+            
+            <!-- ফিচার ২ -->
+            <div class="feature-card">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                </div>
+                <h3>রিয়েল-টাইম ম্যাচ আপডেট</h3>
+                <p>লাইভ স্কোর, ম্যাচ শিডিউল এবং অংশগ্রহণকারীদের তালিকা দেখুন।</p>
+            </div>
+
+            <!-- ফিচার ৩ -->
+            <div class="feature-card">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                </div>
+                <h3>আকর্ষণীয় পুরস্কার</h3>
+                <p>জয়ী দলের জন্য পুরস্কার এবং গিফট কার্ড সহ নানা ইন-অ্যাপ রিওয়ার্ড।</p>
+            </div>
+
+            <!-- ফিচার ৪ -->
+            <div class="feature-card">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                </div>
+                <h3>২৪/৭ সহায়তা</h3>
+                <p>মেসেজ বা কলের মাধ্যমে যে কোনো সময় সাপোর্ট টিমের সঙ্গে যোগাযোগ করুন।</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- গ্রাহক রিভিউ সেকশন -->
+    <section id="reviews" class="reviews-section">
+        <h2 class="section-title">গ্রাহক রিভিউ</h2>
+        <p class="section-subtitle">হাজারো ব্যবহারকারীর সন্তুষ্টি আমাদের গর্ব</p>
+        
+        <div class="review-content">
+            <p class="review-text">“অত্যন্ত সহায়ক সাপোর্ট টিম রয়েছে। যে কোনো প্রশ্নের উত্তর দ্রুত পাই। highly recommended!”</p>
+            <div class="reviewer-name">নাজমুল ইসলাম</div>
+            <div class="stars">★★★★☆</div>
+        </div>
+    </section>
+
+    <!-- ফুটার গ্রেডিয়েন্ট (ছবির শেষের দিকটা মেলানোর জন্য) -->
+    <div class="footer-bottom"></div>
+
+    <!-- ডাউনলোড জাভাস্ক্রিপ্ট -->
+    <script>
+        function startDownload() {
+            document.getElementById('status-message').style.display = 'block';
+            
+            // গুগল ড্রাইভের ডিরেক্ট ডাউনলোড লিংক
+            var driveLink = "https://drive.google.com/uc?export=download&id=12sX9esrelrKfuUqCyhHZgbOfKCSxJv1J";
+            
+            // এক্সটার্নাল ব্রাউজার ওপেন করবে
+            setTimeout(function() {
+                window.open(driveLink, '_blank');
+            }, 800);
+        }
+    </script>
+
+</body>
+</html>
